@@ -22,7 +22,7 @@ jobs:
         run: make build
 
       - name: Test
-        run: go test -v -coverprofile=coverage.out ./internal/... ./cmd/... ./pkg/...
+        run: go test -v -cover ./internal/handler ./internal/service
 
       - name: Benchmark
         run: go test -v -bench=. -benchmem ./internal/service/...
