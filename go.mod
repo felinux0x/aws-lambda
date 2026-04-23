@@ -5,7 +5,7 @@ go 1.25.0
 require (
 	github.com/aws/aws-lambda-go v1.54.0
 	github.com/aws/aws-xray-sdk-go v1.8.5
-	github.com/go-playground/validator/v10 v10.30.2
+	github.com/go-playground/validator/v10 v10.22.1
 )
 
 require (
