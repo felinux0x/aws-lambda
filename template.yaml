@@ -1,0 +1,73 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  aws-lambda-go
+  
+  SAM Template for a Go AWS Lambda Application
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 128
+    # Enable X-Ray Tracing
+    Tracing: Active
+    # Environment variables common to all functions
+    Environment:
+      Variables:
+        ENVIRONMENT: production
+        LOG_LEVEL: INFO
+
+Resources:
+  ApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      # Amazon Linux 2023 is the recommended OS-only runtime for Go
+      Runtime: provided.al2023
+      # Graviton2 architecture is cheaper and often faster
+      Architectures:
+        - arm64
+      # Build method for Makefile
+      BuildMethod: makefile
+      Handler: bootstrap
+      CodeUri: .
+      Environment:
+        Variables:
+          TABLE_NAME: "my-dynamodb-table"
+      AutoPublishAlias: live
+      DeploymentPreference:
+        Type: Canary10Percent5Minutes
+        Alarms:
+          - !Ref ApiErrorAlarm
+      Policies:
+        # Principle of Least Privilege: only allow necessary DynamoDB actions on a specific table
+        - DynamoDBCrudPolicy:
+            TableName: "my-dynamodb-table"
+        # Access to the local Secrets Extension sidecar
+        - AWSSecretsManagerGetSecretValuePolicy:
+            SecretId: "my-app-secrets"
+      Layers:
+        # Use the AWS Parameters and Secrets Lambda Extension
+        # (Replace with the actual ARN for your region: https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets_lambda.html)
+        - !Sub "arn:aws:lambda:${AWS::Region}:187925254637:layer:AWS-Parameters-and-Secrets-Lambda-Extension-Arm64:11"
+      Events:
+        CatchAll:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: GET
+
+Outputs:
+  ApiURL:
+    Description: "API Gateway endpoint URL for Prod environment"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello"
+  ApiFunction:
+    Description: "API Lambda Function ARN"
+    Value: !GetAtt ApiFunction.Arn
+  ApiFunctionIamRole:
+    Description: "Implicit IAM Role created for API function"
+    Value: !GetAtt ApiFunctionRole.Arn
+n ARN"
+    Value: !GetAtt ApiFunction.Arn
+  ApiFunctionIamRole:
+    Description: "Implicit IAM Role created for API function"
+    Value: !GetAtt ApiFunctionRole.Arn

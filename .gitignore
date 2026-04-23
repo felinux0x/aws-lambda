@@ -1,0 +1,32 @@
+# Contexto e Instruções do Agente (Local)
+GEMINI.md
+.geminiignore
+
+# Binários e Artefatos de Build
+bootstrap
+bin/
+package.zip
+*.exe
+*.test
+*.out
+
+# AWS SAM (Arquivos temporários e build local)
+.aws-sam/
+samconfig.toml
+
+# Configurações Locais e Segredos (NUNCA SUBIR)
+env.json
+.env
+local.settings.json
+
+# Dependências (O Go baixa via go.mod)
+vendor/
+
+# IDEs e Sistema Operacional
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
