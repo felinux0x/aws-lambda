@@ -20,7 +20,7 @@ func Load() (*AppConfig, error) {
 	env := getEnv("ENVIRONMENT", "production")
 	logLevel := getEnv("LOG_LEVEL", "INFO")
 	tableName := getEnv("TABLE_NAME", "")
-	
+
 	if tableName == "" {
 		return nil, errors.New("missing required environment variable: TABLE_NAME")
 	}

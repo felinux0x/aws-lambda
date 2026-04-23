@@ -21,7 +21,7 @@ func TestHandleAPIGateway(t *testing.T) {
 		TableName:   "mock-table",
 	}
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
-	
+
 	// Inject the actual service for integration testing
 	// (or you could inject a mock if the service had complex dependencies)
 	svc := service.NewHelloService()
@@ -77,7 +77,7 @@ func TestHandleAPIGateway(t *testing.T) {
 			if tt.expectedStatus == http.StatusOK && body.Message != tt.expectedMsg {
 				t.Errorf("expected message '%s', got '%s'", tt.expectedMsg, body.Message)
 			}
-			
+
 			if tt.expectedStatus != http.StatusOK && body.Status != "error" {
 				t.Errorf("expected status 'error', got '%s'", body.Status)
 			}

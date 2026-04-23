@@ -10,17 +10,17 @@ import (
 // Using this directly avoids heavy dependencies and speeds up cold starts.
 type EMF struct {
 	AWS struct {
-		Timestamp int64  `json:"Timestamp"`
+		Timestamp int64             `json:"Timestamp"`
 		Metrics   []MetricDirective `json:"CloudWatchMetrics"`
 	} `json:"_aws"`
 	// Custom dimensions and metrics go at the root level
-	Dimensions map[string]string `json:"-"` 
+	Dimensions map[string]string  `json:"-"`
 	Metrics    map[string]float64 `json:"-"`
 }
 
 type MetricDirective struct {
-	Namespace  string     `json:"Namespace"`
-	Dimensions [][]string `json:"Dimensions"`
+	Namespace  string             `json:"Namespace"`
+	Dimensions [][]string         `json:"Dimensions"`
 	Metrics    []MetricDefinition `json:"Metrics"`
 }
 

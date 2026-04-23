@@ -53,8 +53,8 @@ func init() {
 	// 4. Handler Injection: Decoupling AWS Transport from Business Logic.
 	appHandler = handler.New(cfg, logger, helloService)
 
-	logger.Info("Lambda execution environment initialized successfully", 
-		"env", cfg.Environment, 
+	logger.Info("Lambda execution environment initialized successfully",
+		"env", cfg.Environment,
 		"arch", "arm64",
 	)
 }

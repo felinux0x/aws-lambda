@@ -44,7 +44,7 @@ func (h *Handler) HandleAPIGateway(ctx context.Context, request events.APIGatewa
 	// Logger enrichment: ensures every log line contains the X-Ray Trace ID.
 	log := observability.LoggerWithTrace(ctx, h.Logger)
 
-	log.InfoContext(ctx, "HTTP request received", 
+	log.InfoContext(ctx, "HTTP request received",
 		"path", request.Path,
 		"method", request.HTTPMethod,
 		"requestId", request.RequestContext.RequestID,
@@ -52,7 +52,7 @@ func (h *Handler) HandleAPIGateway(ctx context.Context, request events.APIGatewa
 
 	// 1. Map Input: API Gateway events to Domain Service request.
 	name := request.QueryStringParameters["name"]
-	
+
 	svcReq := service.HelloRequest{
 		Name: name,
 	}

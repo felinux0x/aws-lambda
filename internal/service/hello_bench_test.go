@@ -17,7 +17,7 @@ func BenchmarkSayHello(b *testing.B) {
 
 	b.ResetTimer()
 	b.ReportAllocs() // Important: Shows memory allocations per operation
-	
+
 	for i := 0; i < b.N; i++ {
 		_, err := svc.SayHello(ctx, req)
 		if err != nil {

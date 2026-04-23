@@ -54,8 +54,8 @@ func (s *helloService) SayHello(ctx context.Context, req HelloRequest) (HelloRes
 
 	// 3. Observability: Emit a custom business metric.
 	// This happens synchronously but is ingested asynchronously by CloudWatch.
-	observability.LogEMF("MyApplication/BusinessMetrics", 
-		map[string]string{"Environment": "production"}, 
+	observability.LogEMF("MyApplication/BusinessMetrics",
+		map[string]string{"Environment": "production"},
 		map[string]float64{"SuccessfulGreetings": 1},
 	)
 
